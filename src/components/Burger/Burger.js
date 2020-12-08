@@ -1,8 +1,10 @@
 import React from 'react';
 import './Burger.css';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
+// import { withRouter } from 'react-router-dom';
 
 const burger = (props) => {
+  console.log(props)
   let transformedIngredients = Object.keys(props.ingredients).map(ingredientKey => {
     return [...Array(props.ingredients[ingredientKey])].map((_, i) => {
       return <BurgerIngredient key={ingredientKey + i} type={ingredientKey}/>
@@ -16,7 +18,7 @@ const burger = (props) => {
   return (
     <div className={"Burger"}>
       <BurgerIngredient type="bread-top"/>
-      {transformedIngredients}
+        {transformedIngredients}
       <BurgerIngredient type="bread-bottom"/>
     </div>
   );
