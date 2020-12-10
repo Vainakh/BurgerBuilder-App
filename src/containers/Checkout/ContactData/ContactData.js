@@ -68,8 +68,7 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price
-  }
-      
+  } 
     axios.post('/orders.json', order)
          .then(response => {
            this.setState({ loading: false });
@@ -78,6 +77,18 @@ class ContactData extends Component {
          .catch(error => {
            this.setState({ loading: false });
         });
+  }
+
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedOrderForm = {
+      ...this.state.orderForm
+    };
+    const updatedFormElement = {
+      ...updatedOrderForm[inputIdentifier]
+    };
+    updatedFormElement.value = event.target.value;
+    updatedOrderForm[inputIdentifier] = updatedFormElement;
+    this.setState({orderForm: updatedOrderForm});
   }
 
   render () {
@@ -96,6 +107,7 @@ class ContactData extends Component {
             elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
+            changed={(event) => this.inputChangedHandler(event, formElement.id)}
           />
         ))}
         <Button btnColor={"Success"} clicked={this.orderHandler}>ORDER</Button>

@@ -10,9 +10,9 @@ class Checkout extends Component {
     ingredients: null,
     price: 0
   }
+
   componentWillMount () {
     const query = new URLSearchParams(this.props.location.search);
-    console.log(query)
     const ingredients = {};
     let price = 0;
     for (let param of query.entries()) {
@@ -24,12 +24,15 @@ class Checkout extends Component {
     }
     this.setState({ingredients: ingredients, totalPrice: price})
   }
+
   checkoutCancelledHandler = () => {
     this.props.history.goBack();
   }
+
   checkoutContinuedHandler = () => {
     this.props.history.replace('checkout/contact-data');
   }
+
   render() {
     return (
       <div>
