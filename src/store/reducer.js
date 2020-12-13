@@ -7,7 +7,7 @@ const initialState = {
     salad: 0,
     turkey: 0
   },
-  totalPrice: 4
+  totalPrice: 0
 };
 
 const INGREDIENT_PRICES = {
