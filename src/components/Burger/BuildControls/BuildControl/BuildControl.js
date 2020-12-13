@@ -8,6 +8,5 @@ const buildControl = (props) => (
     <button className={"Less"} onClick={props.removed} disabled={props.disabled}>Less</button>
   </div>
 )
-  
 
 export default buildControl;
