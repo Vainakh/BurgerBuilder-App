@@ -18,13 +18,13 @@ class BurgerBuilder extends Component {
       loading: false
     }
 
-  // componentDidMount() {
-  //   axios.get("https://react-my-burger-86396-default-rtdb.firebaseio.com/ingredients.json")
-  //        .then(response => {
-  //          this.setState({ingredients: response.data})
-  //        })
-  //        .catch(error => {}); 
-  // }
+  componentDidMount() {
+    axios.get("https://react-my-burger-86396-default-rtdb.firebaseio.com/ingredients.json")
+         .then(response => {
+           this.setState({ingredients: response.data})
+         })
+         .catch(error => {}); 
+  }
 
   updatePurchaseState = (ingredients) => {
     const sum = Object.keys(ingredients).map((ingredientKey) => {
