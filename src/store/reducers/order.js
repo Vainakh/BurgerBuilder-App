@@ -27,7 +27,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         loading: false
       };
-    case actionTypes.PURCHASE_BURGER_ERROR:
       default:
         return state;
   }
