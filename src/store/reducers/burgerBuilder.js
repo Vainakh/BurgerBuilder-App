@@ -1,4 +1,5 @@
 import * as actionTypes from '../actions/actionTypes';
+import { fetchIngredientsFailed } from '../actions/burgerBuilder';
 import { updateObject } from '../utility';
 
 const initialState = {
@@ -14,39 +15,50 @@ const INGREDIENT_PRICES = {
   turkey: 2
 } 
 
-const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actionTypes.ADD_INGREDIENT: 
-    const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1}
+const addIngredient = (state, action) => {
+  const updatedIngredient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1}
     const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
     const updatedState = {
       ingredients: updatedIngredients,
       totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
     }
-      return updateObject(state, updatedState);
-    case actionTypes.REMOVE_INGREDIENT:
-    const updatedIng = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1}
+    return updateObject(state, updatedState);
+}
+
+const removeIngredient = (state, action) => {
+  const updatedIng = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1}
     const updatedIngs = updateObject(state.ingredients, updatedIng);
     const updatedSt = {
       ingredients: updatedIngs,
       totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
     } 
-      return updateObject(state, updatedSt)
-    case actionTypes.SET_INGREDIENTS:
-      return updateObject(state, {
-        ingredients: {
-          salad: action.ingredients.salad,
-          turkey: action.ingredients.turkey,
-          cheese: action.ingredients.cheese,
-          meat: action.ingredients.meat
-        },
-        error: false,
-        totalPrice: 0
-      });    
-    case actionTypes.FETCH_INGREDIENTS_FAILED:
-      return updateObject (state, { error: true })
-    default:
-      return state;
+    return updateObject(state, updatedSt)
+}
+
+const setIngredient = (state, action) => {
+  return updateObject(state, {
+    ingredients: {
+      salad: action.ingredients.salad,
+      turkey: action.ingredients.turkey,
+      cheese: action.ingredients.cheese,
+      meat: action.ingredients.meat
+    },
+    error: false,
+    totalPrice: 0
+  });  
+}
+
+const fetchedIngredientsFailed = (state, action) => {
+  return updateObject (state, { error: true });
+};
+
+const reducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.ADD_INGREDIENT: return addIngredient(state, action);  
+    case actionTypes.REMOVE_INGREDIENT: return removeIngredient(state, action);
+    case actionTypes.SET_INGREDIENTS: return setIngredient(state, action); 
+    case actionTypes.FETCH_INGREDIENTS_FAILED: return fetchedIngredientsFailed(state, action);
+    default: return state;
   }
 };
 
